@@ -5,8 +5,17 @@ import os
 import glob
 import re
 from operator import itemgetter
+import sys
 
-Class_Name = "Advanced Operating Systems Subtitles"
+
+
+if len(sys.argv) != 2:
+    print("Wrong number of command line arguments")
+    print("example: python3 Python_to_Script.py <Directory name>")
+    exit(-1)
+
+
+Class_Name = sys.argv[1]
 
 for filepath_root in glob.iglob(Class_Name + '/*'):
     #print("==========================================================================")
