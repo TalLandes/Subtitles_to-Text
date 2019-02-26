@@ -23,7 +23,7 @@ for filepath_root in glob.iglob(Class_Name + '/*'):
 
 
 
-    #first go through the file name, get the numbers and sort them.
+    #First go through the file name, get the numbers and sort them.
     file_list = []
     for filepath_chapter in glob.iglob(filepath_root + '/*.srt'):
 
@@ -33,23 +33,24 @@ for filepath_root in glob.iglob(Class_Name + '/*'):
                           'Num':      int(number),
             })
 
-    #same list as above just orderred.
+    #Same list as above just orderred by lesson number
     newlist = sorted(file_list, key=itemgetter('FileName'))
 
 
-    # go through the files and write them into one file
+    #Go through the files and write them into one file
     text_file = open(new_folder + '/' + folder_name + '.txt', "w")
     for file_in_list in newlist:
 
         Subtitle_file_token = open(file_in_list['FileName'], "r")
         file_contents = Subtitle_file_token.read()
 
-        #remove all the timing and other not interesting content
+        #Remove all the timing and other not interesting content
         file_contents = re.sub('\n.*\n\d\d:\d\d:.*\n', '', file_contents)
         file_contents = re.sub('1\n\d\d:\d\d:.*\n',    '', file_contents)
+        #Some files have that in there. No danger in just removing it.
         file_contents = re.sub('\n\[BLANK_AUDIO\]', '', file_contents)
 
-        #put a line between the videos to seperate the capters somewhat.
+        #Put a line between the videos to seperate the capters somewhat.
         text_file.write("\n========================================================================================================================\n")
         #Add filename for refrence and also to make sure it's right.
         text_file.write("[ " + os.path.basename(file_in_list['FileName']) + " ]\n")
